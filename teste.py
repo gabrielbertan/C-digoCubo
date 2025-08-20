@@ -5,16 +5,16 @@ import numpy as np
 def identify_color(hsv_pixel):
     h, s, v = hsv_pixel
 
-    if s < 50 and v > 200:
+    if s < 70 and v > 150:
         return "Branco"
     if v < 50:
         return "Preto"
 
     if (h >= 0 and h <= 10) or (h >= 170 and h <= 180):
         return "Vermelho"
-    if 10 < h <= 25:
+    if 10 < h <= 20:
         return "Laranja"
-    if 25 < h <= 35:
+    if 20 < h <= 35:
         return "Amarelo"
     if 35 < h <= 85:
         return "Verde"
@@ -60,8 +60,7 @@ while True:
 
         # Desenha o quadrado na tela
         cv2.rectangle(frame, (x, y), (x+size, y+size), (255, 255, 255), 2)
-        cv2.putText(frame, color_name, (x, y-5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+        cv2.putText(frame, color_name, (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
 
     # Mostra a captura
     cv2.imshow("Detecção de Cubo Mágico", frame)
@@ -94,5 +93,6 @@ for face in confirmed_colors:
     print(f"-------------- FACE {number_faces} --------------")
     print()
 
+print(confirmed_colors)
 cap.release()
 cv2.destroyAllWindows()
