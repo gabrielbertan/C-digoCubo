@@ -27,10 +27,12 @@ def identify_color(hsv_pixel):
 cap = cv2.VideoCapture(0)
 
 # Definir posições dos 9 quadradinhos (x, y, tamanho)
-size = 40
-offset = 60
+size = 5
+offset = 115
 start_x, start_y = 200, 120
 
+number_faces = 1
+confirmed_colors = []
 positions = []
 for row in range(3):
     for col in range(3):
@@ -67,6 +69,30 @@ while True:
     key = cv2.waitKey(1)
     if key == ord("q"):
         break
+    elif key == ord("p"):
+        confirmed_colors.append(detected_colors)
+        feedback = frame.copy()
+        cv2.putText(feedback, f"FACE {number_faces}!", (300,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,0), 5, cv2.LINE_AA)
+        number_faces += 1
+        cv2.imshow("webcam", feedback)
+        
+            
+        
+number_faces = 1
+print(f"-------------- FACE {number_faces} --------------")
+print()
+for face in confirmed_colors:
+    counter = 0
+    for color in face:
+        print(f"| {color} |", end='')
+        counter += 1
+        if counter == 3:
+            print()
+            counter = 0
+    number_faces += 1
+    print()
+    print(f"-------------- FACE {number_faces} --------------")
+    print()
 
 cap.release()
 cv2.destroyAllWindows()
